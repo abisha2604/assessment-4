@@ -1,0 +1,13 @@
+from jose import jwt
+from datetime import datetime,timedelta
+
+SECRET_KEY =  "fastAPI"
+EXPIRE_TIME = 30
+ALGORITHM = "HS256"
+
+def create_token(data:dict):
+    encode_text = data.copy()
+    expire = (datetime.now()+timedelta(minutes=EXPIRE_TIME))
+    encode_text.update({"exp":expire})
+    token = jwt.encode(encode_text,SECRET_KEY,algorithm=ALGORITHM)
+    return token
